@@ -13,17 +13,9 @@
 
   tasks:
 
-    # Step 1: Create Docker network (if not exists)
-    - name: Check if Docker network exists
-      shell: docker network ls --filter name={{ app_network }} -q
-      register: app_network_exists
-      changed_when: false
 
-    - name: Create Docker network if not exists
-      shell: docker network create {{ app_network }}
-      when: app_network_exists.stdout == ""
 
-    # Step 2: Ensure Docker is installed and running
+    # Step 1: Ensure Docker is installed and running
     - name: Check if Docker is installed
       command: docker --version
       register: docker_installed
@@ -54,6 +46,15 @@
         state: started
         enabled: yes
       when: docker_installed.rc != 0
+          # Step 2: Create Docker network (if not exists)
+    - name: Check if Docker network exists
+      shell: docker network ls --filter name={{ app_network }} -q
+      register: app_network_exists
+      changed_when: false
+
+    - name: Create Docker network if not exists
+      shell: docker network create {{ app_network }}
+      when: app_network_exists.stdout == ""
 
     # Step 3: Install Loki Docker Plugin
     - name: Check if Loki plugin is installed

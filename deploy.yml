@@ -121,9 +121,11 @@
         --network {{ app_network }} \
         --publish 8080:80 \
         --log-driver=loki \
+        --restart unless-stopped \ 
         --log-opt loki-url={{ loki_url }} \
         --log-opt loki-external-labels="{{ loki_labels }}" \
         {{ app_name }}:latest
+       
 
     # Step 6: Deploy Node Exporter
     - name: Check if Node Exporter container exists
@@ -142,6 +144,7 @@
         docker run -d --name {{ node_exporter_name }} \
         --network {{ app_network }} \
         --publish 9100:9100 \
+        --restart unless-stopped \
         quay.io/prometheus/node-exporter:latest
 
     # Step 7: Deploy cAdvisor
@@ -165,6 +168,7 @@
         --volume=/var/run:/var/run:ro \
         --volume=/sys:/sys:ro \
         --volume=/var/lib/docker/:/var/lib/docker:ro \
+        --restart unless-stopped \
         gcr.io/cadvisor/cadvisor:latest
 
   handlers:

@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://172.17.231.190:8080', 
-    brokerURL: 'ws://172.17.231.190:8080/ws', 
-};
+    apiUrl: 'http://172.17.5.191:8443/api', // Nginx proxy for backend API
+    brokerURL: 'ws://172.17.5.191:8443/ws', // Nginx proxy for WebSocket
+  };

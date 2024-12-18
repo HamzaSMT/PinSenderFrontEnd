@@ -5,7 +5,7 @@
     app_name: angular-nginx-app
     app_tar_src: angular-nginx-app.tar
     app_tar_dest: /tmp/angular-nginx-app.tar
-    loki_url: http://10.0.2.4:3100/loki/api/v1/push
+    loki_url: http://172.17.5.190:3100/loki/api/v1/push
     loki_labels: job=frontservice
     cadvisor_name: cadvisor
     node_exporter_name: node-exporter
@@ -163,7 +163,7 @@
       shell: |
         docker run -d --name {{ cadvisor_name }} \
         --network {{ app_network }} \
-        --publish 8184:8080 \
+        --publish 8182:8080 \
         --volume=/:/rootfs:ro \
         --volume=/var/run:/var/run:ro \
         --volume=/sys:/sys:ro \

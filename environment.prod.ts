@@ -1,6 +1,5 @@
 export const environment = {
-    production: false,
-    apiUrl: 'http://10.0.2.5:8080',
-    brokerURL: 'ws://10.0.2.5:8080/ws', 
-   
+    production: true,
+    apiUrl: 'http://172.17.231.190:8080', 
+    brokerURL: 'ws://172.17.231.190:8080/ws', 
 };
